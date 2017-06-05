@@ -11,7 +11,15 @@
     function add(numbers) {
       if (!numbers) return 0;
 
-      return numbers.split(',').map(Number).reduce((acc, cur) => acc + cur, 0);
+      let delimiter = /[\n,]/;
+
+      if (numbers.startsWith('//')) {
+        const newLine = numbers.indexOf('\n');
+        delimiter = numbers.slice(2, newLine);
+        numbers = numbers.slice(newLine);
+      }
+
+      return numbers.split(delimiter).map(Number).reduce((acc, cur) => acc + cur, 0);
     }
   </script>
 
@@ -76,8 +84,35 @@
       </td>
     </tr>
     <tr>
+      <td>1,3,5</td>
+      <td>9</td>
+      <td>
+        <script>
+          document.write(add('1,3,5'))
+        </script>
+      </td>
+    </tr>
+    <tr>
+      <td>1\n2,3</td>
+      <td>6</td>
+      <td>
+        <script>
+          document.write(add('1\n2,3'))
+        </script>
+      </td>
+    </tr>
+    <tr>
+      <td>//;\n1;2</td>
+      <td>3</td>
+      <td>
+        <script>
+          document.write(add('//;\n1;2'))
+        </script>
+      </td>
+    </tr>
+    <tr>
       <td></td>
-      <td>0</td>
+      <td></td>
       <td>
         <script>
           document.write(add(''))
@@ -86,7 +121,7 @@
     </tr>
     <tr>
       <td></td>
-      <td>0</td>
+      <td></td>
       <td>
         <script>
           document.write(add(''))
@@ -95,7 +130,16 @@
     </tr>
     <tr>
       <td></td>
-      <td>0</td>
+      <td></td>
+      <td>
+        <script>
+          document.write(add(''))
+        </script>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
       <td>
         <script>
           document.write(add(''))
