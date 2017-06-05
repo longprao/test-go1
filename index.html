@@ -13,24 +13,27 @@
 
       let delimiter = /[\n,]/;
 
-      // custom delimiter arbitrary length
-      if (numbers.startsWith('//[')) {
-        delimiter = numbers.match(/^\/\/\[([^]+?)\]\n/)[1];
-        numbers = numbers.slice(numbers.indexOf(']\n') + 1);
+      if (numbers.startsWith('//')) {
+        // custom delimiter arbitrary length //[delimiter]\n[numbers...]
+        if (numbers.slice(2, 3) === '[') {
+          delimiter = numbers.match(/^\/\/\[([^]+?)\]\n/)[1];
+          numbers = numbers.slice(numbers.indexOf(']\n') + 1);
 
-        // multiple delimiter
-        if (delimiter.indexOf('[')) {
-          delimiter = delimiter.split('][');
-          delimiter = new RegExp('[' + delimiter.join('') + ']');
+          // multiple delimiter //[delim1][delim2]\n[numbers...]
+          if (delimiter.indexOf('[')) {
+            delimiter = delimiter.split('][');
+            delimiter = new RegExp('[' + delimiter.join('') + ']');
+          }
         }
-      // custom delimiter single length
-      } else if (numbers.startsWith('//')) {
-        delimiter = numbers.slice(2, 3);
-        numbers = numbers.slice(3);
+        // custom delimiter single length //delimiter\n[numbers...]
+        else {
+          delimiter = numbers.slice(2, 3);
+          numbers = numbers.slice(3);
+        }
       }
 
       const results = numbers.split(delimiter).map(Number);
-      const negatives = results.filter((el) => el < 0);
+      const negatives = results.filter(el => el < 0);
 
       if (negatives.length) {
         throw new Error('negatives not allowed ' + negatives.join(', '));
@@ -67,7 +70,7 @@
     <thead>
     <tr>
       <th>Input</th>
-      <th>Expect</th>
+      <th>Expected</th>
       <th>Actual</th>
     </tr>
     </thead>
