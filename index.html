@@ -13,9 +13,17 @@
 
       let delimiter = /[\n,]/;
 
+      // custom delimiter arbitrary length
       if (numbers.startsWith('//[')) {
         delimiter = numbers.match(/^\/\/\[([^]+?)\]\n/)[1];
         numbers = numbers.slice(numbers.indexOf(']\n') + 1);
+
+        // multiple delimiter
+        if (delimiter.indexOf('[')) {
+          delimiter = delimiter.split('][');
+          delimiter = new RegExp('[' + delimiter.join('') + ']');
+        }
+      // custom delimiter single length
       } else if (numbers.startsWith('//')) {
         delimiter = numbers.slice(2, 3);
         numbers = numbers.slice(3);
@@ -182,11 +190,29 @@
       </td>
     </tr>
     <tr>
-      <td></td>
-      <td></td>
+      <td>//[*][%]\n1*2%3</td>
+      <td>6</td>
       <td>
         <script>
-          document.write(add(''))
+          document.write(add('//[*][%]\n1*2%3'))
+        </script>
+      </td>
+    </tr>
+    <tr>
+      <td>//[***][%]\n1***2%3</td>
+      <td>6</td>
+      <td>
+        <script>
+          document.write(add('//[***][%]\n1***2%3'))
+        </script>
+      </td>
+    </tr>
+    <tr>
+      <td>//[***][%%][^]\n1***2%%3^4</td>
+      <td>10</td>
+      <td>
+        <script>
+          document.write(add('//[***][%%][^]\n1***2%%3^4'))
         </script>
       </td>
     </tr>
