@@ -19,7 +19,14 @@
         numbers = numbers.slice(newLine);
       }
 
-      return numbers.split(delimiter).map(Number).reduce((acc, cur) => acc + cur, 0);
+      const results = numbers.split(delimiter).map(Number);
+      const negatives = results.filter((el) => el < 0);
+
+      if (negatives.length) {
+        throw new Error('negatives not allowed ' + negatives.join(', '));
+      }
+
+      return results.reduce((acc, cur) => acc + cur, 0);
     }
   </script>
 
@@ -111,11 +118,15 @@
       </td>
     </tr>
     <tr>
-      <td></td>
-      <td></td>
+      <td>1,-2,-5</td>
+      <td>Error: negatives not allowed: -2, -5</td>
       <td>
         <script>
-          document.write(add(''))
+          try {
+            document.write(add('1,-2,-5'))
+          } catch (e) {
+            document.write(e);
+          }
         </script>
       </td>
     </tr>
