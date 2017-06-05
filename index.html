@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <title>Test GO1</title>
+
+  <script>
+    function add(numbers) {
+      if (!numbers) return 0;
+
+      return numbers.split(',').map(Number).reduce((acc, cur) => acc + cur, 0);
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    table {
+      width: 100%;
+    }
+
+    td, th {
+      padding: 10px;
+      text-align: left;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <table>
+    <thead>
+    <tr>
+      <th>Input</th>
+      <th>Expect</th>
+      <th>Actual</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td></td>
+      <td>0</td>
+      <td>
+        <script>
+          document.write(add(''))
+        </script>
+      </td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>
+        <script>
+          document.write(add('1'))
+        </script>
+      </td>
+    </tr>
+    <tr>
+      <td>1,2</td>
+      <td>3</td>
+      <td>
+        <script>
+          document.write(add('1,2'))
+        </script>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>0</td>
+      <td>
+        <script>
+          document.write(add(''))
+        </script>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>0</td>
+      <td>
+        <script>
+          document.write(add(''))
+        </script>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>0</td>
+      <td>
+        <script>
+          document.write(add(''))
+        </script>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
